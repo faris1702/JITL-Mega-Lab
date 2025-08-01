@@ -11,4 +11,25 @@ Mine,<br>
 `ASW1(config)#switchport access vlan 30`<br>
 JITL,<br>
 `ASW1(config)#switchport access vlan 10,20,30`
+## Topics Covered
+- Password, Username
+- VLANs
+- Layer 2/3 EtherChannel
+- IPv4, Ipv6 Addressing
+- Static & Dynamic Routing
+- HSRP
+- RSTP
+- DHCP
+- DNS
+- NTP
+- SNMP
+- Syslog
+- FTP
+- SSH
+- NAT
+- Normal & Extended ACLs
+- Port-Security
+- DHCP Snooping
+- DAI
+- WLC Configuration (Dynamic Interfaces & WLAN)
 ![image](Mega_Lab.png)
