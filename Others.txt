@@ -1,0 +1,48 @@
+============ PART 3: IP Addresses, Layer 3 EtherChannel , HSRP ===========
+## SRV1 ##
+Default Gateway: 10.5.0.1
+IPv4 Address: 10.5.0.4
+Subnet Mask: 255.255.255.0
+##########
+==========================================================================
+
+=== PART 6: Network Services - DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT ====
+## SRV1 ##
+DNS Entries:
+  google.com = 172.253.62.100  (A record)
+  youtube.com = 152.250.31.93  (A record)
+  jeremysitlab.com = 66.253.200.145  (A record)
+  www.jeremysitlab.com = jeremysitlab.com  (CNAME record)
+  
+DNS Server: 10.5.0.4 (set itself as DNS Server)
+##########
+===============================================================================
+
+
+======================== PART 9: Wireless =====================================
+##### WLC GUI ######
+https://10.0.0.7
+Username: admin
+Password: adminPW12
+Dynamic Interface for Wi-Fi WLAN (10.6.0.0/24)
+  Name: Wi-Fi
+  VLAN: 40
+  Port number: 1
+  IP address: 10.6.0.4
+  Gateway: 10.6.0.1
+  DHCP Server: 10.0.0.76
+  
+WLAN
+  Profile Name: Wi-Fi
+  SSID: Wi-Fi
+  ID: 1
+  Status: Enabled
+  Interface: Wi-Fi
+  Security:
+	Layer 2:
+	  Layer 2 Security: WPA+WPA2
+	  Parameters: WPA2 Policy
+	  Authentication Key Management:
+	    PSK: Enable 
+		Password: cisco123
+===============================================================================

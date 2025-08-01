@@ -1,0 +1,256 @@
+======== PART 1: Initial Setup =============
+hostname ASW-A3
+enable secret jeremysitlab
+username cisco secret ccna
+line console 0
+login local
+exec-timeout 30
+logging synchronous
+====================================
+
+========== PART 2: VLANs, Layer 2 Etherchannel =====================
+int range g0/1-2
+switchport mode trunk
+switchport nonegotiate
+switchport trunk native vlan 1000
+switchport trunk allowed vlan 10,20,40,99
+
+vtp mode client
+
+int f0/1
+switchport mode access
+switchport nonegotiate
+switchport access vlan 10
+switchport voice vlan 20
+
+int range f0/2-24
+shutdown
+====================================================================
+
+================ PART 3: IP Adresses, Layer 3 Etherchannel, HSRP ==============
+ip default-gateway 10.0.0.1
+int vlan 99 
+ip address 10.0.0.6 255.255.255.240
+===============================================================================
+
+================ PART 4: RSTP =======================
+spanning-tree mode rapid-pvst
+int f0/1
+spanning-tree portfast
+spanning-tree bpduguard enable
+=====================================================
+
+=== PART 6: Network Services - DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT ====
+ip domain-name jeremysitlab.com
+ip name-server 10.5.0.4
+
+ntp authentication-key 1 md5 ccna
+ntp trusted-key 1
+ntp server 10.0.0.76 key 1
+snmp-server community SNMPSTRING ro
+
+logging 10.5.0.4
+logging trap debugging
+logging buffered 8192
+
+no cdp run
+lldp run
+int f0/1
+ no lldp transmit
+===============================================================================
+
+============ PART 7: Security - ACLs, Layer 2 Security Features ===============
+int f0/1
+switchport port-security
+switchport port-security max 2
+switchport port-security violation restrict
+switchport port-security mac-address sticky
+
+ip dhcp snooping
+ip dhcp snooping vlan 10,20,40,99
+no ip dhcp snooping information option
+int range g0/1-2
+  ip dhcp snooping trust
+int f0/1 
+  ip dhcp snooping limit rate 15
+  
+ip arp inspection vlan 10,20,40,99
+ip arp inspection validate dst-mac 
+ip arp inspection validate ip
+ip arp inspection validate src-mac
+int range g0/1-2
+ ip arp inspection trust
+===============================================================================
+
+
+Current configuration : 2882 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ASW-A3
+!
+enable secret 5 $1$mERr$LG1PCX0pnG7g1VqYOLG9a/
+!
+!
+!
+ip ssh version 2
+ip domain-name jeremysitlab.com
+ip name-server 10.5.0.4
+!
+username cisco secret 5 $1$mERr$Bok4KDfVutXOJolNq009M/
+!
+ip arp inspection vlan 10,20,40,99
+ip arp inspection validate src-mac
+!
+ip dhcp snooping vlan 10,20,40,99
+no ip dhcp snooping information option
+ip dhcp snooping
+!
+lldp run
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport access vlan 10
+ ip dhcp snooping limit rate 15
+ no lldp transmit
+ switchport mode access
+ switchport nonegotiate
+ switchport voice vlan 20
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0002.4A9B.CAE1
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/2
+ shutdown
+!
+interface FastEthernet0/3
+ shutdown
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 1000
+ switchport trunk allowed vlan 10,20,40,99
+ ip arp inspection trust
+ ip dhcp snooping trust
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 1000
+ switchport trunk allowed vlan 10,20,40,99
+ ip arp inspection trust
+ ip dhcp snooping trust
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 10.0.0.6 255.255.255.240
+!
+ip default-gateway 10.0.0.1
+!
+no cdp run
+!
+logging trap debugging
+logging 10.5.0.4
+!
+!
+snmp-server community SNMPSTRING RO
+!
+access-list 1 permit 10.1.0.0 0.0.0.255
+line con 0
+ logging synchronous
+ login local
+ exec-timeout 30 0
+!
+line vty 0 4
+ access-class 1 in
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ access-class 1 in
+ logging synchronous
+ login local
+ transport input ssh
+!
+!
+!
+ntp trusted-key 1
+ntp server 10.0.0.76 key 1
+!
+end
