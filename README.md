@@ -6,9 +6,9 @@ This is a Cisco Packet Tracer lab based on Jeremy's IT Lab CCNA Course - Mega La
 The lab is based on a 3 layer LAN architecture which consists of core, distribution and access switches. The configurations that I uploaded are correct but not exactly the same thus getting the 97% on the lab.
 For example,<br>
 Mine,<br>
-`switchport access vlan 10`
-`switchport access vlan 20`
-`switchport access vlan 30`
+`ASW1(config)#switchport access vlan 10`<br>
+`ASW1(config)#switchport access vlan 20`<br>
+`ASW1(config)#switchport access vlan 30`<br>
 JITL,<br>
-`switchport access vlan 10,20,30`
+`ASW1(config)#switchport access vlan 10,20,30`
 ![image](Mega_Lab.png)
