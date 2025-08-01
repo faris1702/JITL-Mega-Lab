@@ -13,7 +13,7 @@ JITL,<br>
 `ASW1(config)#switchport access vlan 10,20,30`
 ## Topics Covered
 - Password, Username
-- VLANs
+- VLANs (VoIP included)
 - Layer 2/3 EtherChannel
 - IPv4, Ipv6 Addressing
 - Static & Dynamic Routing
