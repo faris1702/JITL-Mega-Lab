@@ -10,7 +10,10 @@ Mine,<br>
 `ASW1(config)#switchport access vlan 20`<br>
 `ASW1(config)#switchport access vlan 30`<br>
 JITL,<br>
-`ASW1(config)#switchport access vlan 10,20,30`
+`ASW1(config)#switchport access vlan 10,20,30` <br>
+
+I have included the configurations for each device in the text files in this repository. Feel free to view them. <br>
+
 ## Topics Covered
 - Password, Username
 - VLANs (VoIP included)
